@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 
 //import exitHook from 'async-exit-hook'
-import express, { urlencoded } from 'express'
+import express from 'express'
 import { env } from '~/config/environment'
 import { CONNECT_DB } from './config/mongodb'
-import { APIs_V1 } from '~/src/routes/v1'
+import { APIs_V1 } from './routes/v1'
 
 const START_SERVER = () => {
   const app = express()

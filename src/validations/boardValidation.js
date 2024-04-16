@@ -8,13 +8,12 @@ const createNew = async (req, res, next) => {
       'string.empty': 'Title is not allowed to be empty',
       'string.min': 'Title must have at least 3 characters',
       'string.max': 'Title must have lest then 50 characters',
-      'string.trim': 'Title is must not have leading or trailing spaces',
+      'string.trim': 'Title is must not have leading or trailing spaces'
     }),
     description: Joi.string().required().min(3).max(256).trim().strict()
   })
 
   try {
-    console.log(req.body)
     await correctCondition.validateAsync(req.body, { abortEarly: false })
     next()
   } catch (err) {
