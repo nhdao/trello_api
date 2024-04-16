@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 //import exitHook from 'async-exit-hook'
-import express from 'express'
+import express, { urlencoded } from 'express'
 import { env } from '~/config/environment'
 import { CONNECT_DB } from './config/mongodb'
 import { APIs_V1 } from '~/src/routes/v1'
@@ -12,6 +12,8 @@ const START_SERVER = () => {
   const hostname = 'localhost'
   const port = 8017
 
+  //Enable req.body json data
+  app.use(express.json())
   app.use('/v1', APIs_V1)
 
   app.listen(port, hostname, () => {
