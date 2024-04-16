@@ -1,17 +1,20 @@
+/* eslint-disable no-unused-vars */
 import { StatusCodes } from 'http-status-codes'
-
-const createNew = (req, res, next) => {
+import ApiError from '~/utils/ApiError'
+import { boardService } from '~/services/boardService'
+const createNew = async (req, res, next) => {
   try {
-    res.status(StatusCodes.OK).json({
-      message: 'Note: API get list boards'
+    const createdBoard = await boardService.createNew(req.body)
+    res.status(StatusCodes.CREATED).json({
+      data: [
+        createdBoard
+      ]
     })
   } catch (err) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: new Error(err).message
-    })
+    next(err)
   }
 }
 
 export const boardController = {
   createNew
-} 
+}

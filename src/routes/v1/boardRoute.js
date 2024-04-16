@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { boardController } from '~/controllers/boardController'
