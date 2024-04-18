@@ -1,29 +1,26 @@
 /* eslint-disable no-console */
 
-
-/**
- * Updated by trungquandev.com's author on August 17 2023
- * YouTube: https://youtube.com/@trungquandev
- * "A bit of fragrance clings to the hand that gives flowers!"
- */
-
 //import exitHook from 'async-exit-hook'
 import express from 'express'
+import cors from 'cors'
 import { env } from '~/config/environment'
 import { CONNECT_DB } from './config/mongodb'
+import { APIs_V1 } from './routes/v1'
+import { errorHandlingMiddleware } from './middlewares/errorHandlingMiddleware'
+import { corsOptions } from './config/cors'
 
 const START_SERVER = () => {
   const app = express()
 
-  const hostname = 'localhost'
-  const port = 8017
+  app.use(cors(corsOptions))
 
-  app.get('/', async (req, res) => {
+  //Enable req.body json data
+  app.use(express.json())
+  app.use('/v1', APIs_V1)
 
-    res.end('<h1>Hello World!</h1><hr>')
-  })
+  app.use(errorHandlingMiddleware)
 
-  app.listen(port, hostname, () => {
+  app.listen(env.APP_PORT, env.APP_HOST, () => {
     console.log(`Hello ${env.AUTHOR}, I am running at http://${ env.APP_HOST }:${ env.APP_PORT }/`)
   })
 
