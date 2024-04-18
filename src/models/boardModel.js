@@ -97,11 +97,34 @@ const pushColumnOrderIds = async (column) => {
   }
 }
 
+const pullColumnOrderIds = async (column) => {
+  try {
+    const result = await GET_DB().collection(BOARD_COLLECTION_NAME).findOneAndUpdate(
+      {
+        _id: ObjectId(column.boardId)
+      },
+      {
+        $pull: {
+          columnOrderIds: ObjectId(column._id)
+        }
+      },
+      {
+        returnDocument: 'after'
+      }
+    )
+
+    return result.value
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
 export const boardModel = {
   BOARD_COLLECTION_NAME,
   BOARD_COLLECTION_SCHEMA,
   createNew,
   findOneById,
   getDetail,
-  pushColumnOrderIds
+  pushColumnOrderIds,
+  pullColumnOrderIds
 }

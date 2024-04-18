@@ -47,10 +47,21 @@ const findOneById = async (id) => {
   }
 }
 
+const deleteManyByColumnId = async (id) => {
+  try {
+    const result = await GET_DB().collection(CARD_COLLECTION_NAME).deleteMany({
+      columnId: ObjectId(id)
+    })
+    return result
+  } catch (err) {
+    throw new Error(err)
+  }
+}
 
 export const cardModel = {
   CARD_COLLECTION_NAME,
   CARD_COLLECTION_SCHEMA,
   createNew,
-  findOneById
+  findOneById,
+  deleteManyByColumnId
 }
